@@ -33,12 +33,7 @@ public class Hangman {
         }
 
         //Initlization of guess map
-        SortedMap<String, String> guessMap = new TreeMap<String,String>(new Comparator<String>() {
-            public int compare(String a, String b)
-            {
-                return b.compareTo(a);
-            }
-        });
+        Map<String, String> guessMap = new HashMap<String,String>();
 
         //Creation of word breakdown
         Map<String, String> breakdown = new HashMap<>();
@@ -46,7 +41,7 @@ public class Hangman {
             breakdown.put("spot" + p, word.substring(p, p+1));
         }
 
-        System.out.println(word);
+        //System.out.println(word);
 
         while(guesses != 0 && game){
             //Print reveled word
@@ -73,7 +68,19 @@ public class Hangman {
             
             
     
-            System.out.print("Here are the letters you have guessed so far: " + guessMap);
+            System.out.print("Here are the letters you have guessed so far:");
+
+            String buff = "";
+            boolean p = false;
+            for(char ch = 'a' ; ch <= 'z' ; ++ch ){
+                buff = Character.toString(ch);
+                if(guessMap.get(buff) != null){
+                    System.out.print(" " + guessMap.get(buff));
+                    p = true;
+                }   
+            }
+            if(p)
+                System.out.print("."); 
 
             System.out.print('\n');
 
@@ -92,7 +99,7 @@ public class Hangman {
             }else if(guessMap.containsValue(guess)){
                 System.out.println(ANSI_RED + "You have already guessed this value" + ANSI_RESET);
             }else{
-                guessMap.put(""+incorrect, guess);
+                guessMap.put(guess, guess);
                 
                 System.out.println("I'm sorry…");
                 incorrect++;
@@ -105,6 +112,7 @@ public class Hangman {
                 break;
             }
 
+
             System.out.println("----------------------------------------------------------");
             
         }
@@ -113,9 +121,9 @@ public class Hangman {
             System.out.println(ANSI_RED + showGuess6() + ANSI_RESET);
         }
 
-
+        System.out.println();
         System.out.println("----------------------------------------------------------");
-        System.out.print('\n' + '\n');
+        System.out.println();
         System.out.println("The word is: " + word);
        
         
@@ -128,7 +136,7 @@ public class Hangman {
     private static List<String> readFile() {
         Scanner reader;
         try {
-            reader = new Scanner(new File("Hangman/words.txt"));
+            reader = new Scanner(new File("words.txt"));
             List<String> words = new ArrayList<String>();
 
             while (reader.hasNext()){
@@ -145,6 +153,7 @@ public class Hangman {
 
         
     }
+
 
     //Hangman Draw()
 
