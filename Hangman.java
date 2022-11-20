@@ -12,18 +12,42 @@ public class Hangman {
 
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+    private static boolean fun_mode = true;
+
+    private static int guesses = 6;
+    private static int incorrect = 0;
+    private static boolean game = true;
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        int guesses = 6;
-        int incorrect = 0;
-        boolean game = true;
-        List<String> words = readFile();
+        
+        List<String> words = readFile(scan);
+
+        
 
         System.out.println("Welcome to Hangman! You have to guess the mystery word in 6 guesses or less.");
 
         Random rand = new Random();
-        String word  = words.get(rand.nextInt(words.size()));
 
+        String word;
+
+        if(fun_mode){
+            word  = words.get(rand.nextInt(words.size()));
+            fun_stuff(scan);
+        }else{
+            word = "arrays";
+            non_fun_stuff(scan);
+        }
+
+
+
+    }
+
+    public static void non_fun_stuff(Scanner scan, String word){
+        
+    }
+    
+    public static void fun_stuff(Scanner scan, String word){
         int len = word.length();
 
         //Creation of null guess map
@@ -133,8 +157,19 @@ public class Hangman {
     }
     
 
-    private static List<String> readFile() {
+    private static List<String> readFile(Scanner scan) {
         Scanner reader;
+        System.out.println("Without arrays? (Yes/No)");
+        
+        String stuff = scan.nextLine();
+
+        stuff = stuff.toLowerCase();
+
+        if(stuff.equals("yes")){
+            fun_mode = false;
+            return null;
+        }
+
         try {
             reader = new Scanner(new File("words.txt"));
             List<String> words = new ArrayList<String>();
