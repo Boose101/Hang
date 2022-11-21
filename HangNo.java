@@ -46,12 +46,15 @@ public class HangNo {
             for(int f = 0; f < guessList.length(); f++){
                 System.out.print(" " + guessList.charAt(f));
             }
+            System.out.println();
 
             System.out.println("What letter would you like to guess next?");
     
             userGuess = scan.nextLine();
 
             userGuess = userGuess.toLowerCase();
+
+            
 
             String buffer  = "";
 
@@ -71,13 +74,47 @@ public class HangNo {
             wordGuess = buffer;
 
 
+
+            
+
+
+            
+
+            Boolean thing = false;
+
+            
+
+
             if(fits){
                 System.out.println(ANSI_GREEN + "CORRECT!!!" + ANSI_RESET);
             }else{
-                System.out.println(ANSI_RED + "I'm sorry…" + ANSI_RESET);
-                guessLeft--;
-                guessList += (userGuess);
+                for(int ab = 0; ab < guessList.length(); ab++){
+                    if(userGuess.equals(Character.toString(guessList.charAt(ab)))){
+                        thing = true;
+                    }
+                }
+                if(thing){
+                    System.out.println(ANSI_RED + ANSI_WHITE_BACKGROUND + "Don't be stupid, you have already entered that letter" + ANSI_RESET);
+                }else{
+                    System.out.println(ANSI_RED + "I'm sorry…" + ANSI_RESET);
+                    guessLeft--;
+                    guessList += (userGuess);
+                }
+                
+                
             }
+
+            String buff = "";
+
+            for(int order = 0; order < 200; order++){
+                for(int az = 0; az < guessList.length(); az++ ){
+                    if(order == guessList.charAt(az)){
+                        buff += Character.toString(guessList.charAt(az));
+                    }
+                }
+            }
+
+            guessList = buff;
 
             //draw
             if(guessLeft == 6){
@@ -111,18 +148,11 @@ public class HangNo {
                 System.out.println("The word was " + word);
                 game = false;
             }
-            
-       
+
         }
-
-
-
-
-        
-
-        
-        
     }
+            
+            
 
     private static String findWord() {
 
@@ -159,7 +189,82 @@ public class HangNo {
 
             return "computer";
         }
+    }
 
         
+    
+
+    private static String drawTop()
+    {
+       return("_____" + '\n' + 
+              "|   |");
+
     }
+    
+    private static String showStart()
+    {
+        return(drawTop() + '\n' +
+        "|   " + '\n' +
+        "|   " + '\n' +
+        "|   "); 
+    }
+
+    private static String showGuess1()
+    {
+        return(drawTop() + '\n' +
+        "|   o" + '\n' +
+        "|   " + '\n' +
+        "|   "); 
+    }
+
+    private static String showGuess2()
+    {
+        return(drawTop() + '\n' +
+        "|   o" + '\n' +
+        "|   | " + '\n' +
+        "|   "); 
+    }
+
+    private static String showGuess3()
+    {
+        return(drawTop() + '\n' +
+        "|   o" + '\n' +
+        "|  /| " + '\n' +
+        "|   "); 
+    }
+
+    private static String showGuess4()
+    {
+        ;
+        return(drawTop() + '\n' + 
+        "|   o" + '\n' + 
+        "|  /|\\ " + '\n' +
+        "|   "); 
+    }
+
+    private static String showGuess5()
+    {
+        return(drawTop() + '\n' +
+        "|   o" + '\n' +
+        "|  /|\\ " + '\n' +
+        "|    \\"); 
+    }
+
+    private static String showGuess6()
+    {
+        return(drawTop() + '\n' +
+        "|   o" + '\n' +
+        "|  /|\\ " + '\n' +
+        "|  / \\"); 
+    }
+       
+        
+
+
+
+
+        
+
+        
+        
 }
