@@ -22,7 +22,7 @@ public class HangNo {
 
         String word = findWord();
         int len = word.length();
-        int guessLeft = 5;
+        int guessLeft = 6;
         String wordGuess = "";
         String guessList = "";
 
@@ -31,7 +31,7 @@ public class HangNo {
         int won = 0;
         
 
-        System.out.println("Welcome to Hangman! You have to guess the mystery word in 5 guesses or less.");
+        System.out.println("Welcome to Hangman! You have to guess the mystery word in 6 guesses or less.");
 
         System.out.println(word);
 
@@ -42,7 +42,11 @@ public class HangNo {
         while(game){
             System.out.println("Here's what you have so far: "+ wordGuess);
             System.out.println("You have " + guessLeft + " guesses left.");
-            System.out.println("Here are the letters you have guessed so far:" + guessList);
+            System.out.print("Here are the letters you have guessed so far:");
+            for(int f = 0; f < guessList.length(); f++){
+                System.out.print(" " + guessList.charAt(f));
+            }
+
             System.out.println("What letter would you like to guess next?");
     
             userGuess = scan.nextLine();
@@ -72,7 +76,22 @@ public class HangNo {
             }else{
                 System.out.println(ANSI_RED + "I'm sorry…" + ANSI_RESET);
                 guessLeft--;
-                guessList += (" " + userGuess);
+                guessList += (userGuess);
+            }
+
+            //draw
+            if(guessLeft == 6){
+                System.out.println(showStart());
+            }else if(guessLeft == 5){
+                System.out.println(showGuess1());
+            }else if(guessLeft == 4){
+                System.out.println(showGuess2());
+            }else if(guessLeft == 3){
+                System.out.println(showGuess3());
+            }else if(guessLeft == 2){
+                System.out.println(showGuess4());
+            }else if(guessLeft == 1){
+                System.out.println(showGuess5());
             }
 
             if(guessLeft <= 0){
